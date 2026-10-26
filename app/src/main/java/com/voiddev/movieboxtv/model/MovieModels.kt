@@ -2,34 +2,50 @@ package com.voiddev.movieboxtv.model
 
 import com.google.gson.annotations.SerializedName
 
+data class HomeResponse(
+    val code: Int = 0,
+    val msg: String? = null,
+    val data: HomeData? = null
+)
+
+data class HomeData(
+    val list: List<HomeCategory>? = emptyList()
+)
+
 data class HomeCategory(
-    @SerializedName("title") val title: String,
-    @SerializedName("type") val type: String?,
-    @SerializedName("items") val items: List<MovieItem> = emptyList()
+    val title: String? = "Category",
+    val type: String? = null,
+    val items: List<MovieItem> = emptyList()
 )
 
 data class MovieItem(
-    @SerializedName("subjectId") val subjectId: String,
-    @SerializedName("title") val title: String,
-    @SerializedName("cover") val cover: String?,
-    @SerializedName("poster") val poster: String?,
-    @SerializedName("score") val score: String?,
-    @SerializedName("releaseTime") val releaseTime: String?
-)
-
-data class PlayInfoResponse(
-    @SerializedName("stream_url") val streamUrl: String?,
-    @SerializedName("url") val url: String?,
-    @SerializedName("isHls") val isHls: Boolean = false,
-    @SerializedName("headers") val headers: Map<String, String>? = null,
-    @SerializedName("subtitles") val subtitles: List<SubtitleItem>? = null
+    @SerializedName("subjectId") val subjectId: String? = null,
+    val id: String? = null,
+    val title: String? = null,
+    val name: String? = null,
+    val cover: String? = null,
+    val poster: String? = null,
+    val score: String? = null,
+    @SerializedName("releaseTime") val releaseTime: String? = null,
+    val duration: String? = null,
+    val desc: String? = null
 ) {
-    fun getResolvedUrl(): String? = streamUrl ?: url
+    val effectiveId: String
+        get() = subjectId ?: id ?: ""
+
+    val displayTitle: String
+        get() = title ?: name ?: "Unknown"
+
+    val displayPoster: String?
+        get() = cover ?: poster
 }
 
-data class SubtitleItem(
-    @SerializedName("id") val id: String,
-    @SerializedName("lan") val lan: String,
-    @SerializedName("lanName") val lanName: String,
-    @SerializedName("url") val url: String
-)
+data class PlayInfoResponse(
+    val code: Int = 0,
+    val msg: String? = null,
+    val url: String? = null,
+    @SerializedName("stream_url") val streamUrl: String? = null,
+    val headers: Map<String, String>? = null
+) {
+    fun getResolvedUrl(): String? = url ?: streamUrl
+}

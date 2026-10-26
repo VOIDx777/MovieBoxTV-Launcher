@@ -1,6 +1,6 @@
 package com.voiddev.movieboxtv.api
 
-import com.voiddev.movieboxtv.model.HomeCategory
+import com.voiddev.movieboxtv.model.HomeResponse
 import com.voiddev.movieboxtv.model.PlayInfoResponse
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -12,14 +12,13 @@ import java.util.concurrent.TimeUnit
 
 interface MovieBoxApi {
     @GET("home")
-    suspend fun getHome(): List<HomeCategory>
+    suspend fun getHome(): HomeResponse
 
     @GET("stream/{id}")
     suspend fun getStreamInfo(@Path("id") id: String): PlayInfoResponse
 }
 
 object RetrofitClient {
-    // Agar TV pe Termux/server chal raha hai to 127.0.0.1, warna LAN IP e.g. 192.168.x.x:8000
     private const val BASE_URL = "http://127.0.0.1:8000/"
 
     private val okHttpClient = OkHttpClient.Builder()

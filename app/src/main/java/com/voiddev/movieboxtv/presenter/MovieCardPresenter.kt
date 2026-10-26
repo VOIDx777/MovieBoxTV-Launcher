@@ -1,7 +1,6 @@
 package com.voiddev.movieboxtv.presenter
 
 import android.view.ViewGroup
-import androidx.core.content.ContextCompat
 import androidx.leanback.widget.ImageCardView
 import androidx.leanback.widget.Presenter
 import coil.load
@@ -22,11 +21,10 @@ class MovieCardPresenter : Presenter() {
         val movie = item as? MovieItem ?: return
         val card = viewHolder.view as ImageCardView
 
-        card.titleText = movie.title
+        card.titleText = movie.displayTitle
         card.contentText = "⭐ ${movie.score ?: "N/A"}  •  ${movie.releaseTime ?: ""}"
 
-        val imgUrl = movie.cover ?: movie.poster
-        card.mainImageView?.load(imgUrl) {
+        card.mainImageView?.load(movie.displayPoster) {
             crossfade(200)
             scale(Scale.FIT)
         }

@@ -5,7 +5,10 @@ import android.os.Bundle
 import android.view.View
 import android.widget.Toast
 import androidx.leanback.app.BrowseSupportFragment
-import androidx.leanback.widget.*
+import androidx.leanback.widget.ArrayObjectAdapter
+import androidx.leanback.widget.HeaderItem
+import androidx.leanback.widget.ListRow
+import androidx.leanback.widget.ListRowPresenter
 import androidx.lifecycle.lifecycleScope
 import com.voiddev.movieboxtv.api.RetrofitClient
 import com.voiddev.movieboxtv.model.MovieItem
@@ -21,53 +24,48 @@ class MainFragment : BrowseSupportFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        title = "MOVIEBOX TV"
+        title = "MovieBox TV"
         headersState = HEADERS_ENABLED
         isHeadersTransitionOnBackEnabled = true
-        brandColor = resources.getColor(android.R.color.black, null)
-
         adapter = rowsAdapter
-        setupEvents()
-        fetchData()
+
+        onItemViewClickedListener = { _, item, _, _ ->
+            val movie = item as? MovieItem
+            if (movie != null && movie.effectiveId.isNotEmpty()) {
+                val intent = Intent(requireContext(), PlayerActivity::class.java).apply {
+                    putExtra("SUBJECT_ID", movie.effectiveId)
+                }
+                startActivity(intent)
+            }
+        }
+
+        loadHomeData()
     }
 
-    private fun fetchData() {
+    private fun loadHomeData() {
         lifecycleScope.launch(Dispatchers.IO) {
             try {
-                val categories = RetrofitClient.api.getHome()
-                val presenter = MovieCardPresenter()
+                val response = RetrofitClient.api.getHome()
+                val categories = response.data?.list ?: emptyList()
 
                 withContext(Dispatchers.Main) {
-                    var idCounter = 0L
-                    categories.forEach { category ->
-                        val validItems = category.items.filter { 
-                            it.title != "Unknown" && (!it.poster.isNullOrEmpty() || !it.cover.isNullOrEmpty()) 
-                        }
-                        if (validItems.isNotEmpty()) {
-                            val rowAdapter = ArrayObjectAdapter(presenter)
-                            validItems.forEach { rowAdapter.add(it) }
+                    rowsAdapter.clear()
+                    val cardPresenter = MovieCardPresenter()
 
-                            val header = HeaderItem(idCounter++, category.title)
-                            rowsAdapter.add(ListRow(header, rowAdapter))
+                    categories.forEachIndexed { index, category ->
+                        if (category.items.isNotEmpty()) {
+                            val listRowAdapter = ArrayObjectAdapter(cardPresenter)
+                            category.items.forEach { listRowAdapter.add(it) }
+                            val header = HeaderItem(index.toLong(), category.title ?: "Section")
+                            rowsAdapter.add(ListRow(header, listRowAdapter))
                         }
                     }
                 }
             } catch (e: Exception) {
                 withContext(Dispatchers.Main) {
-                    Toast.makeText(context, "API Load Error: ${e.message}", Toast.LENGTH_LONG).show()
+                    Toast.makeText(requireContext(), "API Load Error: ${e.message}", Toast.LENGTH_LONG).show()
                 }
             }
-        }
-    }
-
-    private fun setupEvents() {
-        onItemViewClickedListener = OnItemViewClickedListener { _, item, _, _ ->
-            val movie = item as? MovieItem ?: return@OnItemViewClickedListener
-            val intent = Intent(requireContext(), PlayerActivity::class.java).apply {
-                putExtra("SUBJECT_ID", movie.subjectId)
-                putExtra("TITLE", movie.title)
-            }
-            startActivity(intent)
         }
     }
 }
