@@ -1,18 +1,22 @@
 package com.voiddev.movieboxtv.presenter
 
+import android.view.ContextThemeWrapper
 import android.view.ViewGroup
 import androidx.leanback.widget.ImageCardView
 import androidx.leanback.widget.Presenter
 import coil.load
 import coil.size.Scale
+import com.voiddev.movieboxtv.R
 import com.voiddev.movieboxtv.model.MovieItem
 
 class MovieCardPresenter : Presenter() {
+
     override fun onCreateViewHolder(parent: ViewGroup): ViewHolder {
-        val card = ImageCardView(parent.context).apply {
+        val themedContext = ContextThemeWrapper(parent.context, androidx.leanback.R.style.Theme_Leanback)
+        val card = ImageCardView(themedContext).apply {
             isFocusable = true
             isFocusableInTouchMode = true
-            setMainImageDimensions(300, 170)
+            setMainImageDimensions(320, 180)
         }
         return ViewHolder(card)
     }
@@ -25,7 +29,7 @@ class MovieCardPresenter : Presenter() {
         card.contentText = "⭐ ${movie.score ?: "N/A"}  •  ${movie.releaseTime ?: ""}"
 
         card.mainImageView?.load(movie.displayPoster) {
-            crossfade(200)
+            crossfade(true)
             scale(Scale.FIT)
         }
     }
