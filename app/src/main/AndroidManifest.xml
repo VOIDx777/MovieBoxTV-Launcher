@@ -13,7 +13,8 @@
 
     <application
         android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@drawable/ic_launcher"
+        android:banner="@drawable/app_banner"
         android:label="MovieBox TV"
         android:theme="@style/Theme.Leanback"
         android:usesCleartextTraffic="true">
@@ -25,9 +26,6 @@
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LEANBACK_LAUNCHER" />
-                <!-- Default TV Launcher banane ke liye uncomment karo: -->
-                <!-- <category android:name="android.intent.category.HOME" /> -->
-                <!-- <category android:name="android.intent.category.DEFAULT" /> -->
             </intent-filter>
         </activity>
 
