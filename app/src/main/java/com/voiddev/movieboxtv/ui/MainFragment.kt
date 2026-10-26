@@ -9,6 +9,10 @@ import androidx.leanback.widget.ArrayObjectAdapter
 import androidx.leanback.widget.HeaderItem
 import androidx.leanback.widget.ListRow
 import androidx.leanback.widget.ListRowPresenter
+import androidx.leanback.widget.OnItemViewClickedListener
+import androidx.leanback.widget.Presenter
+import androidx.leanback.widget.Row
+import androidx.leanback.widget.RowPresenter
 import androidx.lifecycle.lifecycleScope
 import com.voiddev.movieboxtv.api.RetrofitClient
 import com.voiddev.movieboxtv.model.MovieItem
@@ -29,7 +33,7 @@ class MainFragment : BrowseSupportFragment() {
         isHeadersTransitionOnBackEnabled = true
         adapter = rowsAdapter
 
-        onItemViewClickedListener = { _, item, _, _ ->
+        onItemViewClickedListener = OnItemViewClickedListener { _, item, _, _ ->
             val movie = item as? MovieItem
             if (movie != null && movie.effectiveId.isNotEmpty()) {
                 val intent = Intent(requireContext(), PlayerActivity::class.java).apply {
