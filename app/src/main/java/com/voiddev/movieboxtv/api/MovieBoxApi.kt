@@ -1,7 +1,7 @@
-package com.void.movieboxtv.api
+package com.voiddev.movieboxtv.api
 
-import com.void.movieboxtv.model.HomeCategory
-import com.void.movieboxtv.model.PlayInfoResponse
+import com.voiddev.movieboxtv.model.HomeCategory
+import com.voiddev.movieboxtv.model.PlayInfoResponse
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit

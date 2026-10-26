@@ -4,11 +4,11 @@ plugins {
 }
 
 android {
-    namespace = "com.void.movieboxtv"
+    namespace = "com.voiddev.movieboxtv"
     compileSdk = 34
 
     defaultConfig {
-        applicationId = "com.void.movieboxtv"
+        applicationId = "com.voiddev.movieboxtv"
         minSdk = 24
         targetSdk = 34
         versionCode = 1

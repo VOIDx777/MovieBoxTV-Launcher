@@ -1,4 +1,4 @@
-package com.void.movieboxtv.ui
+package com.voiddev.movieboxtv.ui
 
 import android.content.Intent
 import android.os.Bundle
@@ -7,9 +7,9 @@ import android.widget.Toast
 import androidx.leanback.app.BrowseSupportFragment
 import androidx.leanback.widget.*
 import androidx.lifecycle.lifecycleScope
-import com.void.movieboxtv.api.RetrofitClient
-import com.void.movieboxtv.model.MovieItem
-import com.void.movieboxtv.presenter.MovieCardPresenter
+import com.voiddev.movieboxtv.api.RetrofitClient
+import com.voiddev.movieboxtv.model.MovieItem
+import com.voiddev.movieboxtv.presenter.MovieCardPresenter
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext

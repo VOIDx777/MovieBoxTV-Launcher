@@ -1,4 +1,4 @@
-package com.void.movieboxtv.model
+package com.voiddev.movieboxtv.model
 
 import com.google.gson.annotations.SerializedName
 

@@ -1,4 +1,4 @@
-package com.void.movieboxtv.ui
+package com.voiddev.movieboxtv.ui
 
 import android.os.Bundle
 import androidx.fragment.app.FragmentActivity

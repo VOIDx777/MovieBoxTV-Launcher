@@ -1,4 +1,4 @@
-package com.void.movieboxtv.ui
+package com.voiddev.movieboxtv.ui
 
 import android.net.Uri
 import android.os.Bundle
@@ -10,7 +10,7 @@ import androidx.media3.datasource.DefaultHttpDataSource
 import androidx.media3.exoplayer.ExoPlayer
 import androidx.media3.exoplayer.source.DefaultMediaSourceFactory
 import androidx.media3.ui.PlayerView
-import com.void.movieboxtv.api.RetrofitClient
+import com.voiddev.movieboxtv.api.RetrofitClient
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext

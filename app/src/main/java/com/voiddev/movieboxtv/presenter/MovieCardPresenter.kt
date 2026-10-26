@@ -1,4 +1,4 @@
-package com.void.movieboxtv.presenter
+package com.voiddev.movieboxtv.presenter
 
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
@@ -6,7 +6,7 @@ import androidx.leanback.widget.ImageCardView
 import androidx.leanback.widget.Presenter
 import coil.load
 import coil.size.Scale
-import com.void.movieboxtv.model.MovieItem
+import com.voiddev.movieboxtv.model.MovieItem
 
 class MovieCardPresenter : Presenter() {
     override fun onCreateViewHolder(parent: ViewGroup): ViewHolder {
