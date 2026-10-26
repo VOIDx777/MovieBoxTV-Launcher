@@ -13,7 +13,7 @@ class MovieCardPresenter : Presenter() {
         val card = ImageCardView(parent.context).apply {
             isFocusable = true
             isFocusableInTouchMode = true
-            setMainImageDimensions(300, 170) // 16:9 Banner ratio
+            setMainImageDimensions(300, 170)
         }
         return ViewHolder(card)
     }
@@ -26,7 +26,7 @@ class MovieCardPresenter : Presenter() {
         card.contentText = "⭐ ${movie.score ?: "N/A"}  •  ${movie.releaseTime ?: ""}"
 
         val imgUrl = movie.cover ?: movie.poster
-        card.mainImageView.load(imgUrl) {
+        card.mainImageView?.load(imgUrl) {
             crossfade(200)
             scale(Scale.FIT)
         }

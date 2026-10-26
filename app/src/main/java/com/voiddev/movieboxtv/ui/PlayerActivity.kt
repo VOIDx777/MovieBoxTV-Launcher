@@ -60,8 +60,8 @@ class PlayerActivity : AppCompatActivity() {
     private fun initPlayer(url: String, headers: Map<String, String>?) {
         val httpDataSourceFactory = DefaultHttpDataSource.Factory().apply {
             setAllowCrossProtocolRedirects(true)
-            headers?.forEach { (key, value) ->
-                setDefaultRequestProperty(key, value)
+            if (!headers.isNullOrEmpty()) {
+                setDefaultRequestProperties(headers)
             }
         }
 
